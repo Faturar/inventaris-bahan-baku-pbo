@@ -6,7 +6,7 @@ public interface PemasokService {
 
     void showPemasok();
 
-    void add(Pemasok pemasok);
-    void edit(Pemasok pemasok);
-    void delete(int id);
+    void addPemasok(Pemasok pemasok);
+    void editPemasok(Pemasok pemasok);
+    void deletePemasok(int id);
 }

@@ -1,4 +1,5 @@
 package entity;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 public class Pemasok {
@@ -7,8 +8,8 @@ public class Pemasok {
     private String nama;
     private String alamat;
     private String noTelepon;
-    private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
+    private Timestamp createdAt;
+    private Timestamp updatedAt;
 
 
 
@@ -16,7 +17,7 @@ public class Pemasok {
     public Pemasok() {
     }
 
-    public Pemasok(Integer id, String nama, String alamat, String noTelepon, LocalDateTime createdAt, LocalDateTime updatedAt) {
+    public Pemasok(Integer id, String nama, String alamat, String noTelepon, Timestamp createdAt, Timestamp updatedAt) {
         this.id = id;
         this.nama = nama;
         this.alamat = alamat;
@@ -57,19 +58,19 @@ public class Pemasok {
         this.noTelepon = noTelepon;
     }
 
-    public LocalDateTime getCreatedAt() {
+    public Timestamp getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(LocalDateTime createdAt) {
+    public void setCreatedAt(Timestamp createdAt) {
         this.createdAt = createdAt;
     }
 
-    public LocalDateTime getUpdatedAt() {
+    public Timestamp getUpdatedAt() {
         return updatedAt;
     }
 
-    public void setUpdatedAt(LocalDateTime updatedAt) {
+    public void setUpdatedAt(Timestamp updatedAt) {
         this.updatedAt = updatedAt;
     }
 }

@@ -1,13 +1,18 @@
 package view;
 
+import service.PemasokService;
 import util.InputUtil;
 
 public class PemasokView {
 
+    private  PemasokService pemasokService;
 
+    public PemasokView(PemasokService pemasokService) {
+        this.pemasokService = pemasokService;
+    }
     public void showPemasok(){
+        pemasokService.showPemasok();
         while (true){
-
             System.out.println("Menu :  ");
             System.out.println("1.Tambah");
             System.out.println("2.Edit");
@@ -16,11 +21,11 @@ public class PemasokView {
 
             var input = InputUtil.inputS("Pilih");
             if(input.equals("1")){
-                addTodoList();
+                addPemasok();
             }else if(input.equals("2")){
-                editTodoList();
+                editPemasok();
             }else if(input.equals("3")){
-                removeTodoList();
+                removePemasok();
             }else if(input.equals("x")){
                 break;
             }else{
@@ -30,13 +35,21 @@ public class PemasokView {
         }
     }
 
-    public void addTodoList() {
+    public void addPemasok() {
+        System.out.println("Menambah Pemasok");
+
+        var pemasok =InputUtil.inputS("Pemasok (x jika batal)");
+        if(pemasok.equals("x")){
+
+        }else{
+            //pemasokService.addPemasok(pemasok);
+        }
     }
 
-    private void editTodoList() {
+    private void editPemasok() {
     }
 
-    public void removeTodoList() {
+    public void removePemasok() {
     }
 
 
