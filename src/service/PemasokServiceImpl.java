@@ -45,6 +45,8 @@ public class PemasokServiceImpl implements PemasokService{
             return;
         }
 
+        pemasokRepository.add(pemasok);
+        System.out.println("Sukses Menambah Data : " + pemasok);
 
 
         // Default timestamps jika belum diisi
