@@ -60,11 +60,41 @@ public class PemasokServiceImpl implements PemasokService{
 
     @Override
     public void editPemasok(Pemasok pemasok) {
+        // Validate data
+        if (pemasok.getNama() == null || pemasok.getNama().isEmpty()) {
+            System.err.println("Nama pemasok tidak boleh kosong.");
+            return;
+        }
+        if (pemasok.getAlamat() == null || pemasok.getAlamat().isEmpty()) {
+            System.err.println("Alamat pemasok tidak boleh kosong.");
+            return;
+        }
+        if (pemasok.getNoTelepon() == null || pemasok.getNoTelepon().isEmpty()) {
+            System.err.println("Nomor telepon pemasok tidak boleh kosong.");
+            return;
+        }
 
+        // Save changes to the repository
+        pemasokRepository.edit(pemasok);
+        System.out.println("Sukses Mengubah Data : " + pemasok);
     }
 
     @Override
     public void deletePemasok(int id) {
+        Pemasok pemasok = pemasokRepository.findById(id);
 
+        if(pemasok == null){
+            System.err.println("Pemasok dengan Id " + id + " tidak ditemukan. ");
+            return;
+        }
+
+        pemasokRepository.delete(id);
+        System.out.println("Pemasok dengan ID "+ id + " berhasil dihapus.");
     }
+
+    @Override
+    public Pemasok findPemasokId(int id){
+        return pemasokRepository.findById(id);
+    }
+
 }

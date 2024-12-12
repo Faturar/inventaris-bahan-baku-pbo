@@ -10,9 +10,15 @@ public class InputUtil  {
         String data = scanner.nextLine();
         return data;
     }
-    public static Integer inputI(int angka){
-        Integer data = scanner.nextInt();
-        return data;
+    public static Integer inputI(String info){
+        System.out.print(info + " : ");
+        while(!scanner.hasNextInt()){
+            System.out.println("Input harus berupa angka coba lagi.");
+            System.out.println(info + ": ");
+            scanner.nextInt();
+        }
+
+        return scanner.nextInt();
     }
 
 }
