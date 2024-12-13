@@ -1,7 +1,12 @@
+import repository.BarangRepository;
+import repository.BarangRepositoryImpl;
 import repository.PemasokRepository;
 import repository.PemasokRepositoryImpl;
+import service.BarangService;
+import service.BarangServiceImpl;
 import service.PemasokService;
 import service.PemasokServiceImpl;
+import view.BarangView;
 import view.PemasokView;
 
 //import  util.DatabaseUtil;
@@ -9,12 +14,15 @@ import view.PemasokView;
 public class Main {
     public static void main(String[] args) {
 
-        PemasokRepository pemasokRepository = new PemasokRepositoryImpl();
-        PemasokService pemasokService = new PemasokServiceImpl(pemasokRepository);
-        PemasokView pemasokView = new PemasokView(pemasokService);
-        pemasokView.showPemasok();
+//        PemasokRepository pemasokRepository = new PemasokRepositoryImpl();
+//        PemasokService pemasokService = new PemasokServiceImpl(pemasokRepository);
+//        PemasokView pemasokView = new PemasokView(pemasokService);
+//        pemasokView.showPemasok();
 
-
+        BarangRepository barangRepository = new BarangRepositoryImpl();
+        BarangService barangService = new BarangServiceImpl(barangRepository);
+        BarangView barangView = new BarangView(barangService);
+        barangView.showBarang();
 
 
 

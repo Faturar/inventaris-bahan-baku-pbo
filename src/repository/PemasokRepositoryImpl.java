@@ -2,9 +2,7 @@ package repository;
 
 import entity.Pemasok;
 import util.DatabaseUtil;
-import repository.PemasokRepository;
 
-import javax.xml.crypto.Data;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
