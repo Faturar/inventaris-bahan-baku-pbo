@@ -55,6 +55,18 @@ public class BarangServiceImpl implements BarangService{
             System.err.println("Stok minimum tidak boleh kurang dari 0.");
             return;
         }
+//        if (barang.getTanggalKadaluarsa() == null) {
+//            System.err.println("Tanggal kadaluarsa tidak boleh kosong.");
+//            return;
+//        }
+
+        // Validasi tambahan: pastikan tanggal kadaluarsa adalah tanggal di masa depan
+//        java.util.Date currentDate = new java.util.Date();
+//        if (barang.getTanggalKadaluarsa().before(currentDate)) {
+//            System.err.println("Tanggal kadaluarsa harus setelah tanggal hari ini.");
+//            return;
+//        }
+
 
         barangRepository.add(barang);
 
@@ -78,7 +90,7 @@ public class BarangServiceImpl implements BarangService{
 
 
         barangRepository.edit(barang);
-        System.out.println("Sukses Mengubah Data : " + barang);
+        System.out.println("Sukses Mengubah Data ");
 
     }
 
@@ -95,7 +107,7 @@ public class BarangServiceImpl implements BarangService{
         }
 
         barangRepository.addStok(barang);
-        System.out.println("Sukses Mengubah Data : " + barang);
+        System.out.println("Sukses Mengubah Data ");
     }
 
     @Override
@@ -111,17 +123,25 @@ public class BarangServiceImpl implements BarangService{
         }
 
         barangRepository.minStok(barang);
-        System.out.println("Sukses Mengubah Data : " + barang);
+        System.out.println("Sukses Mengubah Data ");
     }
 
 
     @Override
     public void deleteBarang(String kdBarang) {
+        Barang barang = barangRepository.findById(kdBarang);
 
+        if(barang == null){
+            System.err.println("Barang dengan Kode " + kdBarang + " tidak ditemukan. ");
+            return;
+        }
+
+        barangRepository.delete(kdBarang);
+        System.out.println("Barang dengan Kode "+ kdBarang + " berhasil dihapus.");
     }
 
     @Override
     public Barang findBarangId(String kdBarang) {
-        return null;
+        return barangRepository.findById(kdBarang);
     }
 }

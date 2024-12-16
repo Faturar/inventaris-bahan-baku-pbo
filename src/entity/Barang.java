@@ -1,5 +1,5 @@
 package entity;
-
+import java.sql.Date;
 import java.sql.Timestamp;
 
 
@@ -9,14 +9,14 @@ public class Barang {
     private String kategori;
     private int stok;
     private int stokMinimum;
-    private Timestamp tanggalKadaluarsa;
+    private Date tanggalKadaluarsa;
 
     private int idPemasok;
     private Timestamp createdAt;
     private Timestamp updatedAt;
 
     public Barang(){}
-    public Barang(String kdBarang, String nama, String kategori, int stok, int stokMinimum, Timestamp tanggalKadaluarsa, int idPemasok, Timestamp createdAt, Timestamp updatedAt) {
+    public Barang(String kdBarang, String nama, String kategori, int stok, int stokMinimum, Date tanggalKadaluarsa, int idPemasok, Timestamp createdAt, Timestamp updatedAt) {
         this.kdBarang = kdBarang;
         this.nama = nama;
         this.kategori = kategori;
@@ -68,11 +68,11 @@ public class Barang {
         this.stokMinimum = stokMinimum;
     }
 
-    public Timestamp getTanggalKadaluarsa() {
+    public Date getTanggalKadaluarsa() {
         return tanggalKadaluarsa;
     }
 
-    public void setTanggalKadaluarsa(Timestamp tanggalKadaluarsa) {
+    public void setTanggalKadaluarsa(Date tanggalKadaluarsa) {
         this.tanggalKadaluarsa = tanggalKadaluarsa;
     }
 

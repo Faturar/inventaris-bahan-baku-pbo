@@ -7,6 +7,8 @@ import service.BarangService;
 import util.InputUtil;
 
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class BarangView {
 
@@ -50,7 +52,10 @@ public class BarangView {
         String kategori = InputUtil.inputS("Masukkan kategori barang: ");
         int stok = InputUtil.inputI("Masukkan stok barang: ");
         int stokMinimum = InputUtil.inputI("Masukkan stok minimum barang: ");
-        //Timestamp tanggalKadaluarsa = Timestamp.valueOf(InputUtil.inputS("Masukkan tanggal kadaluarsa (yyyy-MM-dd HH:mm:ss): "));
+
+        //String tanggalKadaluarsaInput = InputUtil.inputS("Masukkan tanggal kadaluarsa (yyyy-MM-dd):");
+
+
         int idPemasok = InputUtil.inputI("Masukkan ID pemasok: ");
 
         // Create a Pemasok object and set its attributes
@@ -119,62 +124,65 @@ public class BarangView {
     }
 
     private void editBarang() {
-//        System.out.println("Mengubah Data Pemasok");
-//
-//        // Input ID of the Pemasok to edit
-//        var idStr = InputUtil.inputS("ID Pemasok yang ingin diedit | (x untuk batal)");
-//        if (idStr.equalsIgnoreCase("x")) {
-//            System.out.println("Batal mengedit pemasok.");
-//            return;
-//        }
-//
-//        int id;
-//        // convert str to int
-//        try {
-//            id = Integer.parseInt(idStr);
-//        } catch (NumberFormatException e) {
-//            System.err.println("ID tidak valid. Harus berupa angka.");
-//            return;
-//        }
-//
-//        // Find the pemasok by ID
-//        Pemasok existingPemasok = pemasokService.findPemasokId(id);
-//        if (existingPemasok == null) {
-//            System.err.println("Pemasok dengan ID " + id + " tidak ditemukan.");
-//            return;
-//        }
-//
-//        // Display current data
-//        System.out.println("Data pemasok saat ini:");
-//        System.out.println("Nama       : " + existingPemasok.getNama());
-//        System.out.println("Alamat     : " + existingPemasok.getAlamat());
-//        System.out.println("No Telepon : " + existingPemasok.getNoTelepon());
-//
-//        // Input new values (allow skipping fields)
-//        var newNama = InputUtil.inputS("Nama baru (kosongkan untuk tidak mengubah)");
-//        var newAlamat = InputUtil.inputS("Alamat baru (kosongkan untuk tidak mengubah)");
-//        var newNoTelepon = InputUtil.inputS("No Telepon baru (kosongkan untuk tidak mengubah)");
-//
-//        if (!newNama.isEmpty()) existingPemasok.setNama(newNama);
-//        if (!newAlamat.isEmpty()) existingPemasok.setAlamat(newAlamat);
-//        if (!newNoTelepon.isEmpty()) existingPemasok.setNoTelepon(newNoTelepon);
-//
-//        // Call the service to update
-//        pemasokService.editPemasok(existingPemasok);
-//        System.out.println("Data Pemasok berhasil diperbarui.");
+        System.out.println("Mengubah Data Barang");
+
+        // Input kode barang yang ingin diedit
+        var kodeBarang = InputUtil.inputS("Kode Barang yang ingin diedit | (x untuk batal)");
+        if (kodeBarang.equalsIgnoreCase("x")) {
+            System.out.println("Batal mengedit barang.");
+            return;
+        }
+
+        // Cari barang berdasarkan kode barang
+        Barang existingBarang = barangService.findBarangId(kodeBarang);
+        if (existingBarang == null) {
+            System.err.println("Barang dengan kode " + kodeBarang + " tidak ditemukan.");
+            return;
+        }
+
+        // Tampilkan data barang saat ini
+        System.out.println("Data barang saat ini:");
+        System.out.println("Kode Barang   : " + existingBarang.getKdBarang());
+        System.out.println("Nama          : " + existingBarang.getNama());
+        System.out.println("Kategori      : " + existingBarang.getKategori());
+        System.out.println("ID Pemasok    : " + existingBarang.getIdPemasok());
+
+        // Input nilai baru (biarkan kosong untuk tidak mengubah)
+        //var newKdBarang = InputUtil.inputS("Kode Barang baru (kosongkan untuk tidak mengubah)");
+        var newNama = InputUtil.inputS("Nama baru (kosongkan untuk tidak mengubah)");
+        var newKategori = InputUtil.inputS("Kategori baru (kosongkan untuk tidak mengubah)");
+        var newIdPemasokStr = InputUtil.inputS("ID Pemasok baru (kosongkan untuk tidak mengubah)");
+
+        // Validasi dan terapkan perubahan
+        //if (!newKdBarang.isEmpty()) existingBarang.setNama(newKdBarang);
+        if (!newNama.isEmpty()) existingBarang.setNama(newNama);
+        if (!newKategori.isEmpty()) existingBarang.setKategori(newKategori);
+        if (!newIdPemasokStr.isEmpty()) {
+            try {
+                int newIdPemasok = Integer.parseInt(newIdPemasokStr);
+                existingBarang.setIdPemasok(newIdPemasok);
+            } catch (NumberFormatException e) {
+                System.err.println("ID Pemasok tidak valid. Harus berupa angka.");
+                return;
+            }
+        }
+
+        // Panggil service untuk memperbarui data
+        barangService.editBarang(existingBarang);
+        System.out.println("Data Barang berhasil diperbarui.");
     }
 
     public void removeBarang() {
-//        System.out.println("Menghapus Data Pemasok");
-//
-//        int id = InputUtil.inputI("Masukkan ID pemasok yang akan dihapus | (0 untuk batal) ");
-//
-//        if(id == 0){
-//            System.out.println("Penghapusan dibatalakan");
-//            return;
-//        }
-//
-//        pemasokService.deletePemasok(id);
+        System.out.println("Menghapus Data Barang");
+
+        String kdBarang = InputUtil.inputS("Masukkan Kode Barang  yang akan dihapus | (0 untuk batal) ");
+
+        if(kdBarang == "0"){
+            System.out.println("Penghapusan dibatalakan");
+            return;
+        }
+
+        barangService.deleteBarang(kdBarang);
     }
 
 

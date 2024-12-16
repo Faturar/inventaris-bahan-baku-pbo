@@ -4,10 +4,7 @@ import entity.Barang;
 import entity.Pemasok;
 import util.DatabaseUtil;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,7 +25,7 @@ public class BarangRepositoryImpl implements BarangRepository{
                 barang.setKategori(resultSet.getString("kategori"));
                 barang.setStok(resultSet.getInt("stok"));
                 barang.setStokMinimum(resultSet.getInt("stok_minimum"));
-                barang.setTanggalKadaluarsa(resultSet.getTimestamp("tanggal_kadaluarsa"));
+                barang.setTanggalKadaluarsa(resultSet.getDate("tanggal_kadaluarsa"));
                 barang.setIdPemasok(resultSet.getInt("id_pemasok"));
                 barangList.add(barang);
             }
@@ -42,7 +39,7 @@ public class BarangRepositoryImpl implements BarangRepository{
 
     @Override
     public void add(Barang barang) {
-        String sql ="INSERT INTO barangs (kd_barang, nama, kategori, stok, stok_minimum, id_pemasok) VALUES(?, ?, ?, ?, ?, ?)";
+        String sql ="INSERT INTO barangs (kd_barang, nama, kategori, stok, stok_minimum,  id_pemasok) VALUES(?,  ?, ?, ?, ?, ?)";
 
         try(Connection connection = DatabaseUtil.getConnection();
             PreparedStatement statement = connection.prepareStatement(sql)
@@ -52,7 +49,7 @@ public class BarangRepositoryImpl implements BarangRepository{
             statement.setString(3, barang.getKategori());
             statement.setInt(4, barang.getStok());
             statement.setInt(5, barang.getStokMinimum());
-            //statement.setTimestamp(6, barang.getTanggalKadaluarsa());
+            //statement.setDate(6, barang.getTanggalKadaluarsa());
             statement.setInt(6, barang.getIdPemasok());
 
 
@@ -72,6 +69,7 @@ public class BarangRepositoryImpl implements BarangRepository{
             PreparedStatement statement = connection.prepareStatement(sql);
 
         ){
+
             statement.setString(1, barang.getNama());
             statement.setString(2, barang.getKategori());
             statement.setInt(3, barang.getIdPemasok());
@@ -79,17 +77,18 @@ public class BarangRepositoryImpl implements BarangRepository{
 
 
 
+
             int rowsAffected = statement.executeUpdate();
             if (rowsAffected > 0) {
-                System.out.println("Pemasok berhasil diperbarui. Rows affected: " + rowsAffected);
+                System.out.println("Barang berhasil diperbarui. Rows affected: " + rowsAffected);
             } else {
-                System.out.println("Pemasok dengan ID " + barang.getKdBarang() + " tidak ditemukan.");
+                System.out.println("Barang dengan ID " + barang.getKdBarang() + " tidak ditemukan.");
             }
 
 
 
         }catch (SQLException e){
-            System.err.println("Gagal memperbarui data pemasok: " + e.getMessage());
+            System.err.println("Gagal memperbarui data barang: " + e.getMessage());
         }
     }
 
@@ -145,11 +144,48 @@ public class BarangRepositoryImpl implements BarangRepository{
 
     @Override
     public void delete(String kdBarang) {
+        String sql = "DELETE FROM barangs WHERE kd_barang = ?";
 
+        try(Connection connection = DatabaseUtil.getConnection();
+            PreparedStatement statement = connection.prepareStatement(sql);
+        ){
+            statement.setString(1, kdBarang);
+            int rowsAffected = statement.executeUpdate();
+
+            if (rowsAffected > 0) {
+                System.out.println("Barang berhasil dihapus.");
+            } else {
+                System.err.println("Gagal menghapus Barang. Kode barang tidak ditemukan.");
+            }
+
+        }catch (SQLException e){
+            System.err.println("Gagal menghapus barang: " + e.getMessage());
+
+        }
     }
 
     @Override
     public Barang findById(String kdBarang) {
+        String sql  = "SElECT * FROM barangs WHERE kd_barang = ?";
+        try(Connection connection = DatabaseUtil.getConnection();
+            PreparedStatement statement = connection.prepareStatement(sql);
+        ){
+            statement.setString(1, kdBarang);
+            try(ResultSet resultSet = statement.executeQuery()){
+                if(resultSet.next()){
+                    Barang barang = new Barang();
+                    barang.setKdBarang(resultSet.getString("kd_barang"));
+                    barang.setNama(resultSet.getString("nama"));
+                    barang.setKategori(resultSet.getString("kategori"));
+                    barang.setIdPemasok(resultSet.getInt("id_pemasok"));
+                    return barang;
+                }
+            }
+
+        }catch (SQLException e){
+            System.err.println("Gagal mencari pemasok: " + e.getMessage());
+
+        }
         return null;
     }
 }
