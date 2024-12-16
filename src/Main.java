@@ -1,11 +1,6 @@
-import repository.BarangRepository;
-import repository.BarangRepositoryImpl;
-import repository.PemasokRepository;
-import repository.PemasokRepositoryImpl;
-import service.BarangService;
-import service.BarangServiceImpl;
-import service.PemasokService;
-import service.PemasokServiceImpl;
+import repository.*;
+import service.*;
+import view.BarangMasukKeluarView;
 import view.BarangView;
 import view.PemasokView;
 
@@ -19,10 +14,16 @@ public class Main {
 //        PemasokView pemasokView = new PemasokView(pemasokService);
 //        pemasokView.showPemasok();
 
-        BarangRepository barangRepository = new BarangRepositoryImpl();
-        BarangService barangService = new BarangServiceImpl(barangRepository);
-        BarangView barangView = new BarangView(barangService);
-        barangView.showBarang();
+//        BarangRepository barangRepository = new BarangRepositoryImpl();
+//        BarangService barangService = new BarangServiceImpl(barangRepository);
+//        BarangView barangView = new BarangView(barangService);
+//        barangView.showBarang();
+
+        BarangMasukKeluarRepository barangMasukKeluarRepository = new BarangMasukKeluarRepositoryImpl();
+        BarangMasukKeluarService barangMasukKeluarService = new BarangMasukKeluarServiceImpl(barangMasukKeluarRepository);
+        BarangMasukKeluarView barangMasukKeluarView = new BarangMasukKeluarView(barangMasukKeluarService);
+        //barangMasukKeluarView.showBarangMasuk();
+        barangMasukKeluarView.showBarangKeluar();
 
 
 
