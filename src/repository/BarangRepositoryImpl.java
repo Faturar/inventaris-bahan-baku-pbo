@@ -42,7 +42,7 @@ public class BarangRepositoryImpl implements BarangRepository{
 
     @Override
     public void add(Barang barang) {
-        String sql ="INSERT INTO barangs (kd_barang, nama, kategoti, stok, stok_minimum, tanggal_kadaluarsa) VALUES(?, ?, ?, ?, ?, ?, ?)";
+        String sql ="INSERT INTO barangs (kd_barang, nama, kategori, stok, stok_minimum, id_pemasok) VALUES(?, ?, ?, ?, ?, ?)";
 
         try(Connection connection = DatabaseUtil.getConnection();
             PreparedStatement statement = connection.prepareStatement(sql)
@@ -52,7 +52,9 @@ public class BarangRepositoryImpl implements BarangRepository{
             statement.setString(3, barang.getKategori());
             statement.setInt(4, barang.getStok());
             statement.setInt(5, barang.getStokMinimum());
-            statement.setTimestamp(6, barang.getTanggalKadaluarsa());
+            //statement.setTimestamp(6, barang.getTanggalKadaluarsa());
+            statement.setInt(6, barang.getIdPemasok());
+
 
             int rows = statement.executeUpdate();
             System.out.println("Data berhasil ditambahkan. Rows Affected : " + rows);
@@ -65,7 +67,80 @@ public class BarangRepositoryImpl implements BarangRepository{
 
     @Override
     public void edit(Barang barang) {
+        String sql = "UPDATE barangs SET  nama = ?, kategori= ?, id_pemasok= ? WHERE kd_barang = ?";
+        try(Connection connection = DatabaseUtil.getConnection();
+            PreparedStatement statement = connection.prepareStatement(sql);
 
+        ){
+            statement.setString(1, barang.getNama());
+            statement.setString(2, barang.getKategori());
+            statement.setInt(3, barang.getIdPemasok());
+            statement.setString(4, barang.getKdBarang());
+
+
+
+            int rowsAffected = statement.executeUpdate();
+            if (rowsAffected > 0) {
+                System.out.println("Pemasok berhasil diperbarui. Rows affected: " + rowsAffected);
+            } else {
+                System.out.println("Pemasok dengan ID " + barang.getKdBarang() + " tidak ditemukan.");
+            }
+
+
+
+        }catch (SQLException e){
+            System.err.println("Gagal memperbarui data pemasok: " + e.getMessage());
+        }
+    }
+
+    @Override
+    public void addStok(Barang barang) {
+        String sql = "UPDATE barangs SET  stok = stok + ? WHERE kd_barang = ?";
+        try(Connection connection = DatabaseUtil.getConnection();
+            PreparedStatement statement = connection.prepareStatement(sql);
+
+        ){
+            statement.setInt(1, barang.getStok());
+            statement.setString(2, barang.getKdBarang());
+
+            int rowsAffected = statement.executeUpdate();
+            if (rowsAffected > 0) {
+                System.out.println("Pemasok berhasil diperbarui. Rows affected: " + rowsAffected);
+            } else {
+                System.out.println("Pemasok dengan ID " + barang.getKdBarang() + " tidak ditemukan.");
+            }
+
+
+
+        }catch (SQLException e){
+            System.err.println("Gagal memperbarui data pemasok: " + e.getMessage());
+        }
+    }
+
+    @Override
+    public void minStok(Barang barang) {
+        String sql = "UPDATE barangs SET  stok = stok - ? WHERE kd_barang = ?";
+        try(Connection connection = DatabaseUtil.getConnection();
+            PreparedStatement statement = connection.prepareStatement(sql);
+
+        ){
+            statement.setInt(1, barang.getStok());
+            statement.setString(2, barang.getKdBarang());
+
+
+
+            int rowsAffected = statement.executeUpdate();
+            if (rowsAffected > 0) {
+                System.out.println("Pemasok berhasil diperbarui. Rows affected: " + rowsAffected);
+            } else {
+                System.out.println("Pemasok dengan ID " + barang.getKdBarang() + " tidak ditemukan.");
+            }
+
+
+
+        }catch (SQLException e){
+            System.err.println("Gagal memperbarui data pemasok: " + e.getMessage());
+        }
     }
 
     @Override

@@ -1,10 +1,12 @@
 package view;
 
 import entity.Barang;
-import entity.Pemasok;
+
 import service.BarangService;
-import service.PemasokService;
+
 import util.InputUtil;
+
+import java.sql.Timestamp;
 
 public class BarangView {
 
@@ -19,16 +21,19 @@ public class BarangView {
             barangService.showBarang();
             System.out.println("Menu :  ");
             System.out.println("1.Tambah");
-            System.out.println("2.Edit");
-            System.out.println("3.Hapus");
+            System.out.println("2.Edit Stok");
+            System.out.println("3.Edit Barang");
+            System.out.println("4.Hapus");
             System.out.println("x.Menu Utama");
 
             var input = InputUtil.inputS("Pilih");
             if(input.equals("1")){
                 addBarang();
-            }else if(input.equals("2")){
-                editBarang();
+            }else if(input.equals("2")) {
+                editStok();
             }else if(input.equals("3")){
+                editBarang();
+            }else if(input.equals("4")){
                 removeBarang();
             }else if(input.equals("x")){
                 break;
@@ -45,20 +50,72 @@ public class BarangView {
         String kategori = InputUtil.inputS("Masukkan kategori barang: ");
         int stok = InputUtil.inputI("Masukkan stok barang: ");
         int stokMinimum = InputUtil.inputI("Masukkan stok minimum barang: ");
-        Timestamp tanggalKadaluarsa = Timestamp.valueOf(InputUtil.inputS("Masukkan tanggal kadaluarsa (yyyy-MM-dd HH:mm:ss): "));
+        //Timestamp tanggalKadaluarsa = Timestamp.valueOf(InputUtil.inputS("Masukkan tanggal kadaluarsa (yyyy-MM-dd HH:mm:ss): "));
         int idPemasok = InputUtil.inputI("Masukkan ID pemasok: ");
 
         // Create a Pemasok object and set its attributes
         Barang barangData = new Barang();
-        barangData.setKdBarang(kdbarang);
+        barangData.setKdBarang(kdBarang);
         barangData.setNama(nama);
-        barangData.setKategori(alamat);
+        barangData.setKategori(kategori);
+        barangData.setStok(stok);
+        barangData.setStokMinimum(stokMinimum);
+        //barangData.setTanggalKadaluarsa(tanggalKadaluarsa);
+        barangData.setIdPemasok(idPemasok);
 
 
         // Add pemasok using the service layer
         barangService.addBarang(barangData);
 
 
+    }
+
+    private  void editStok(){
+        while (true) {
+
+            System.out.println("Menu :  ");
+            System.out.println("1.Tambah Stok");
+            System.out.println("2.Kurangi Stok");
+            System.out.println("x.Kembali");
+
+            var input = InputUtil.inputS("Pilih");
+            if (input.equals("1")) {
+                addStokBarang();
+            } else if (input.equals("2")) {
+                minStokBarang();
+            } else if (input.equals("x")) {
+                break;
+            } else {
+                System.out.println("Pilihan tidak dimengerti");
+            }
+
+
+        }
+    }
+
+    private void addStokBarang(){
+        barangService.showBarang();
+        System.out.println("=========== Tambah Stok ===========");
+        String kdBarang = InputUtil.inputS("Masukkan Kode barang: ");
+        int stok = InputUtil.inputI("Masukkan jumlah barang: ");
+
+        Barang barangData = new Barang();
+        barangData.setKdBarang(kdBarang);
+        barangData.setStok(stok);
+        // Add pemasok using the service layer
+        barangService.addStokBarang(barangData);
+    }
+    private void minStokBarang(){
+        barangService.showBarang();
+        System.out.println("=========== Pengurangan Stok ===========");
+        String kdBarang = InputUtil.inputS("Masukkan Kode barang: ");
+        int stok = InputUtil.inputI("Masukkan jumlah barang: ");
+
+        Barang barangData = new Barang();
+        barangData.setKdBarang(kdBarang);
+        barangData.setStok(stok);
+        // Add pemasok using the service layer
+        barangService.minStokBarang(barangData);
     }
 
     private void editBarang() {

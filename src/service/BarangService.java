@@ -7,6 +7,8 @@ public interface BarangService {
 
     void addBarang(Barang barang);
     void editBarang(Barang barang);
+    void addStokBarang(Barang barang);
+    void minStokBarang(Barang barang);
     void deleteBarang(String kdBarang);
     Barang findBarangId(String kdBarang);
 

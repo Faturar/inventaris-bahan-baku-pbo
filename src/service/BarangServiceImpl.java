@@ -62,8 +62,58 @@ public class BarangServiceImpl implements BarangService{
 
     @Override
     public void editBarang(Barang barang) {
+        // Validation
+        if(barang.getKdBarang() == null || barang.getKdBarang().isEmpty()){
+            System.err.println("Kode Barang tidak boleh kosong");
+            return;
+        }
+        if(barang.getNama() == null || barang.getNama().isEmpty()){
+            System.err.println("Nama tidak boleh kosong");
+            return;
+        }
+        if(barang.getKategori() == null || barang.getKategori().isEmpty()){
+            System.err.println("Kategori tidak boleh kosong");
+            return;
+        }
+
+
+        barangRepository.edit(barang);
+        System.out.println("Sukses Mengubah Data : " + barang);
 
     }
+
+    @Override
+    public void addStokBarang(Barang barang) {
+        // Validation
+        if(barang.getKdBarang() == null || barang.getKdBarang().isEmpty()){
+            System.err.println("Kode Barang tidak boleh kosong");
+            return;
+        }
+        if(barang.getStok() < 0){
+            System.err.println("Stok tidak boleh kurang dari 0.");
+            return;
+        }
+
+        barangRepository.addStok(barang);
+        System.out.println("Sukses Mengubah Data : " + barang);
+    }
+
+    @Override
+    public void minStokBarang(Barang barang) {
+        // Validation
+        if(barang.getKdBarang() == null || barang.getKdBarang().isEmpty()){
+            System.err.println("Kode Barang tidak boleh kosong");
+            return;
+        }
+        if(barang.getStok() < 0){
+            System.err.println("Stok tidak boleh kurang dari 0.");
+            return;
+        }
+
+        barangRepository.minStok(barang);
+        System.out.println("Sukses Mengubah Data : " + barang);
+    }
+
 
     @Override
     public void deleteBarang(String kdBarang) {
