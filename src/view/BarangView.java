@@ -53,6 +53,8 @@ public class BarangView {
         int year = InputUtil.inputI("Masukkan tahun");
         int month = InputUtil.inputI("Masukkan bulan");
         int day = InputUtil.inputI("Masukkan tanggal");
+        java.sql.Date sqlDate = new java.sql.Date(year - 1900, month -1,day );
+        
         int idPemasok = InputUtil.inputI("Masukkan ID pemasok: ");
 
         // Create a Pemasok object and set its attributes
@@ -62,7 +64,6 @@ public class BarangView {
         barangData.setKategori(kategori);
         barangData.setStok(stok);
         barangData.setStokMinimum(stokMinimum);
-        java.sql.Date sqlDate = new java.sql.Date(year - 1900, month -1,day );
         barangData.setTanggalKadaluarsa(sqlDate);
         barangData.setIdPemasok(idPemasok);
 

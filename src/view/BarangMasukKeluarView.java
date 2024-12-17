@@ -55,14 +55,16 @@ public class BarangMasukKeluarView {
         String kdBarang = InputUtil.inputS("Masukkan kode barang: ");
         int jumlah = InputUtil.inputI("Masukkan jumlah barang: ");
 
+        int year = InputUtil.inputI("Masukkan tahun");
+        int month = InputUtil.inputI("Masukkan bulan");
+        int day = InputUtil.inputI("Masukkan tanggal");
+        java.sql.Date sqlDate = new java.sql.Date(year - 1900, month -1,day );
 
         // Create a Pemasok object and set its attributes
         BarangMasukKeluar barangMasukKeluarData = new BarangMasukKeluar();
         barangMasukKeluarData.setKdBarang(kdBarang);
         barangMasukKeluarData.setJumlah(jumlah);
-
-
-
+        barangMasukKeluarData.setTanggal(sqlDate);
 
         // Add pemasok using the service layer
         barangMasukKeluarService.addBarangMasuk(barangMasukKeluarData);

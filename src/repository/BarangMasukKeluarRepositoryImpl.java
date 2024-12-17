@@ -42,17 +42,14 @@ public class BarangMasukKeluarRepositoryImpl implements BarangMasukKeluarReposit
 
     @Override
     public void addMasuk(BarangMasukKeluar barangMasukKeluar) {
-        String sql ="INSERT INTO barang_masuk_keluars (kd_barang, jumlah, tipe) VALUES(?, ?, 'masuk')";
+        String sql ="INSERT INTO barang_masuk_keluars (kd_barang, jumlah, tanggal, tipe) VALUES(?, ?, ?, 'masuk')";
 
         try(Connection connection = DatabaseUtil.getConnection();
             PreparedStatement statement = connection.prepareStatement(sql)
         ){
             statement.setString(1, barangMasukKeluar.getKdBarang());
             statement.setInt(2, barangMasukKeluar.getJumlah());
-            //statement.setDate(3, barangMasukKeluar.getTanggal());
-
-
-
+            statement.setDate(3, barangMasukKeluar.getTanggal());
 
             int rows = statement.executeUpdate();
             System.out.println("Data berhasil ditambahkan. Rows Affected : " + rows);

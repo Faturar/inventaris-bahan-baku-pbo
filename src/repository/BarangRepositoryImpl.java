@@ -1,7 +1,6 @@
 package repository;
 
 import entity.Barang;
-import entity.Pemasok;
 import util.DatabaseUtil;
 
 import java.sql.*;
@@ -59,7 +58,6 @@ public class BarangRepositoryImpl implements BarangRepository{
             System.err.println("Gagal menambahkan Barang: " + e.getMessage());
 
         }
-
     }
 
     @Override
@@ -69,14 +67,11 @@ public class BarangRepositoryImpl implements BarangRepository{
             PreparedStatement statement = connection.prepareStatement(sql);
 
         ){
-
             statement.setString(1, barang.getNama());
             statement.setString(2, barang.getKategori());
             statement.setDate(3, barang.getTanggalKadaluarsa());
             statement.setInt(4, barang.getIdPemasok());
             statement.setString(5, barang.getKdBarang());
-
-
 
 
             int rowsAffected = statement.executeUpdate();
