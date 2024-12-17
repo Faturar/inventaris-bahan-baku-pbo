@@ -143,7 +143,7 @@ public class BarangView {
         System.out.println("Kode Barang   : " + existingBarang.getKdBarang());
         System.out.println("Nama          : " + existingBarang.getNama());
         System.out.println("Kategori      : " + existingBarang.getKategori());
-        System.out.println("Tanggal Kadaluars      : " + existingBarang.getTanggalKadaluarsa());
+        System.out.println("Tanggal Kadaluarsa      : " + existingBarang.getTanggalKadaluarsa());
         System.out.println("ID Pemasok    : " + existingBarang.getIdPemasok());
 
         // Input nilai baru (biarkan kosong untuk tidak mengubah)

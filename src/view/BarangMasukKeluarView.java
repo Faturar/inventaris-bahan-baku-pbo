@@ -62,8 +62,6 @@ public class BarangMasukKeluarView {
         barangMasukKeluarData.setJumlah(jumlah);
 
 
-
-
         // Add pemasok using the service layer
         barangMasukKeluarService.addBarangMasuk(barangMasukKeluarData);
 
