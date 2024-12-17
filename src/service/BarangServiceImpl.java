@@ -54,17 +54,6 @@ public class BarangServiceImpl implements BarangService{
             System.err.println("Stok minimum tidak boleh kurang dari 0.");
             return;
         }
-//        if (barang.getTanggalKadaluarsa() == null) {
-//            System.err.println("Tanggal kadaluarsa tidak boleh kosong.");
-//            return;
-//        }
-
-        // Validasi tambahan: pastikan tanggal kadaluarsa adalah tanggal di masa depan
-//        java.util.Date currentDate = new java.util.Date();
-//        if (barang.getTanggalKadaluarsa().before(currentDate)) {
-//            System.err.println("Tanggal kadaluarsa harus setelah tanggal hari ini.");
-//            return;
-//        }
 
 
         barangRepository.add(barang);

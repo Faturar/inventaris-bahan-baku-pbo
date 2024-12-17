@@ -22,7 +22,7 @@ public class MenuView {
             System.out.println("2. Barang Keluar");
             System.out.println("3. Data Barang");
             System.out.println("4. Data Pemasok");
-            System.out.println("5. Report (Hari/Minggu/Bulan)");
+            //System.out.println("5. Report (Hari/Minggu/Bulan)");
             System.out.println("x. Keluar");
 
             var input = InputUtil.inputS("Pilih");

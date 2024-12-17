@@ -2,6 +2,7 @@ package service;
 
 import entity.Barang;
 import entity.BarangMasukKeluar;
+import entity.Pemasok;
 import repository.BarangMasukKeluarRepository;
 import repository.BarangRepository;
 
@@ -20,7 +21,7 @@ public class BarangMasukKeluarServiceImpl implements BarangMasukKeluarService {
         System.out.println("========= DAFTAR BARANG MASUK =========");
         for (var i=0; i <model.size();i++){
             BarangMasukKeluar barangMasukKeluar = model.get(i);
-            System.out.println("    id : " + barangMasukKeluar.getKdBarang());
+            System.out.println("    ID : " + barangMasukKeluar.getId());
             System.out.println("    Kode Barang : " + barangMasukKeluar.getKdBarang());
             System.out.println("    Jumlah : " + barangMasukKeluar.getJumlah());
             System.out.println("    Tanggal : " + barangMasukKeluar.getTanggal());
@@ -55,7 +56,15 @@ public class BarangMasukKeluarServiceImpl implements BarangMasukKeluarService {
 
     @Override
     public void deleteBarangMasuk(int id) {
+        BarangMasukKeluar barangMasukKeluar = barangMasukKeluarRepository.findByIdMasuk(id);
 
+        if(barangMasukKeluar == null){
+            System.err.println("Barang Masuk Keluar dengan Id " + id + " tidak ditemukan. ");
+            return;
+        }
+
+        barangMasukKeluarRepository.deleteMasuk(id);
+        System.out.println("Pemasok dengan ID "+ id + " berhasil dihapus.");
     }
 
     @Override
@@ -69,7 +78,7 @@ public class BarangMasukKeluarServiceImpl implements BarangMasukKeluarService {
         System.out.println("========= DAFTAR BARANG KELUAR =========");
         for (var i=0; i <model.size();i++){
             BarangMasukKeluar barangMasukKeluar = model.get(i);
-            System.out.println("    id : " + barangMasukKeluar.getKdBarang());
+            System.out.println("    ID : " + barangMasukKeluar.getId());
             System.out.println("    Kode Barang : " + barangMasukKeluar.getKdBarang());
             System.out.println("    Jumlah : " + barangMasukKeluar.getJumlah());
             System.out.println("    Tanggal : " + barangMasukKeluar.getTanggal());
@@ -93,7 +102,15 @@ public class BarangMasukKeluarServiceImpl implements BarangMasukKeluarService {
 
     @Override
     public void deleteBarangKeluar(int id) {
+        BarangMasukKeluar barangMasukKeluar = barangMasukKeluarRepository.findByIdMasuk(id);
 
+        if(barangMasukKeluar == null){
+            System.err.println("Barang Masuk Keluar dengan Id " + id + " tidak ditemukan. ");
+            return;
+        }
+
+        barangMasukKeluarRepository.deleteKeluar(id);
+        System.out.println("Pemasok dengan ID "+ id + " berhasil dihapus.");
     }
 
     @Override

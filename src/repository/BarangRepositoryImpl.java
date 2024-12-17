@@ -39,7 +39,7 @@ public class BarangRepositoryImpl implements BarangRepository{
 
     @Override
     public void add(Barang barang) {
-        String sql ="INSERT INTO barangs (kd_barang, nama, kategori, stok, stok_minimum,  id_pemasok) VALUES(?,  ?, ?, ?, ?, ?)";
+        String sql ="INSERT INTO barangs (kd_barang, nama, kategori, stok, stok_minimum,tanggal_kadaluarsa,  id_pemasok) VALUES(?, ?, ?, ?, ?, ?, ?)";
 
         try(Connection connection = DatabaseUtil.getConnection();
             PreparedStatement statement = connection.prepareStatement(sql)
@@ -49,8 +49,8 @@ public class BarangRepositoryImpl implements BarangRepository{
             statement.setString(3, barang.getKategori());
             statement.setInt(4, barang.getStok());
             statement.setInt(5, barang.getStokMinimum());
-            //statement.setDate(6, barang.getTanggalKadaluarsa());
-            statement.setInt(6, barang.getIdPemasok());
+            statement.setDate(6, barang.getTanggalKadaluarsa());
+            statement.setInt(7, barang.getIdPemasok());
 
 
             int rows = statement.executeUpdate();
@@ -64,7 +64,7 @@ public class BarangRepositoryImpl implements BarangRepository{
 
     @Override
     public void edit(Barang barang) {
-        String sql = "UPDATE barangs SET  nama = ?, kategori= ?, id_pemasok= ? WHERE kd_barang = ?";
+        String sql = "UPDATE barangs SET  nama = ?, kategori= ?,tanggal_kadaluarsa= ?, id_pemasok= ? WHERE kd_barang = ?";
         try(Connection connection = DatabaseUtil.getConnection();
             PreparedStatement statement = connection.prepareStatement(sql);
 
@@ -72,8 +72,9 @@ public class BarangRepositoryImpl implements BarangRepository{
 
             statement.setString(1, barang.getNama());
             statement.setString(2, barang.getKategori());
-            statement.setInt(3, barang.getIdPemasok());
-            statement.setString(4, barang.getKdBarang());
+            statement.setDate(3, barang.getTanggalKadaluarsa());
+            statement.setInt(4, barang.getIdPemasok());
+            statement.setString(5, barang.getKdBarang());
 
 
 

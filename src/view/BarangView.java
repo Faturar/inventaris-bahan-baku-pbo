@@ -4,6 +4,7 @@ import entity.Barang;
 import service.BarangService;
 import util.InputUtil;
 
+import java.sql.Date;
 import java.time.LocalDate;
 
 public class BarangView {
@@ -49,9 +50,9 @@ public class BarangView {
         int stok = InputUtil.inputI("Masukkan stok barang: ");
         int stokMinimum = InputUtil.inputI("Masukkan stok minimum barang: ");
 
-        String tanggalKadaluarsaInput = InputUtil.inputS("Masukkan tanggal kadaluarsa (yyyy-MM-dd):");
-        LocalDate tanggalKadaluarsa = LocalDate.parse(tanggalKadaluarsaInput);
-
+        int year = InputUtil.inputI("Masukkan tahun");
+        int month = InputUtil.inputI("Masukkan bulan");
+        int day = InputUtil.inputI("Masukkan tanggal");
         int idPemasok = InputUtil.inputI("Masukkan ID pemasok: ");
 
         // Create a Pemasok object and set its attributes
@@ -61,8 +62,8 @@ public class BarangView {
         barangData.setKategori(kategori);
         barangData.setStok(stok);
         barangData.setStokMinimum(stokMinimum);
-        java.sql.Date sqlDate = java.sql.Date.valueOf(tanggalKadaluarsa);
-
+        java.sql.Date sqlDate = new java.sql.Date(year - 1900, month -1,day );
+        barangData.setTanggalKadaluarsa(sqlDate);
         barangData.setIdPemasok(idPemasok);
 
 
@@ -142,18 +143,30 @@ public class BarangView {
         System.out.println("Kode Barang   : " + existingBarang.getKdBarang());
         System.out.println("Nama          : " + existingBarang.getNama());
         System.out.println("Kategori      : " + existingBarang.getKategori());
+        System.out.println("Tanggal Kadaluars      : " + existingBarang.getTanggalKadaluarsa());
         System.out.println("ID Pemasok    : " + existingBarang.getIdPemasok());
 
         // Input nilai baru (biarkan kosong untuk tidak mengubah)
         //var newKdBarang = InputUtil.inputS("Kode Barang baru (kosongkan untuk tidak mengubah)");
         var newNama = InputUtil.inputS("Nama baru (kosongkan untuk tidak mengubah)");
         var newKategori = InputUtil.inputS("Kategori baru (kosongkan untuk tidak mengubah)");
+
+        int newYear = InputUtil.inputI("Masukkan tahun");
+        int newMonth = InputUtil.inputI("Masukkan bulan");
+        int newDay = InputUtil.inputI("Masukkan tanggal");
+
         var newIdPemasokStr = InputUtil.inputS("ID Pemasok baru (kosongkan untuk tidak mengubah)");
+
+
+        java.sql.Date sqlDate = new java.sql.Date(newYear - 1900, newMonth -1,newDay );
+        //barangData.setTanggalKadaluarsa(sqlDate);
 
         // Validasi dan terapkan perubahan
         //if (!newKdBarang.isEmpty()) existingBarang.setNama(newKdBarang);
         if (!newNama.isEmpty()) existingBarang.setNama(newNama);
         if (!newKategori.isEmpty()) existingBarang.setKategori(newKategori);
+        existingBarang.setKategori(String.valueOf(sqlDate));
+
         if (!newIdPemasokStr.isEmpty()) {
             try {
                 int newIdPemasok = Integer.parseInt(newIdPemasokStr);

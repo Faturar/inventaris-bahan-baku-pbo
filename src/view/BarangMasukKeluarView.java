@@ -1,6 +1,6 @@
 package view;
 
-import entity.Barang;
+
 import entity.BarangMasukKeluar;
 import service.BarangMasukKeluarService;
 import service.BarangService;
@@ -36,7 +36,7 @@ public class BarangMasukKeluarView {
                 addBarangMasuk();
             }else if(input.equals("3")){
                 editBarangMasuk();
-            }else if(input.equals("3")){
+            }else if(input.equals("4")){
                 removeBarangMasuk();
             }else if(input.equals("x")){
                 break;
@@ -69,7 +69,18 @@ public class BarangMasukKeluarView {
 
     }
     public void editBarangMasuk(){}
-    public void removeBarangMasuk(){}
+    public void removeBarangMasuk(){
+        System.out.println("Menghapus Data Barang Masuk");
+
+        int id = InputUtil.inputI("Masukkan ID   yang akan dihapus | (0 untuk batal) ");
+
+        if(id == 0){
+            System.out.println("Penghapusan dibatalakan");
+            return;
+        }
+
+        barangMasukKeluarService.deleteBarangMasuk(id);
+    }
 
 
 
@@ -78,9 +89,9 @@ public class BarangMasukKeluarView {
     public void showBarangKeluar(){
 
         while (true){
-            barangMasukKeluarService.showBarangKeluar();
 
-            System.out.println("========================= BARANG MASUK =========================");
+
+            System.out.println("========================= BARANG KELUAR =========================");
             System.out.println("Menu :  ");
             System.out.println("1.Data Barang Keluar");
             System.out.println("2.Tambah");
@@ -95,7 +106,7 @@ public class BarangMasukKeluarView {
                 addBarangKeluar();
             }else if(input.equals("3")){
                 editBarangKeluar();
-            }else if(input.equals("3")){
+            }else if(input.equals("4")){
                 removeBarangKeluar();
             }else if(input.equals("x")){
                 break;
@@ -107,10 +118,22 @@ public class BarangMasukKeluarView {
     }
 
     private void showDataBarangKeluar() {
+        barangMasukKeluarService.showBarangKeluar();
     }
 
     public void addBarangKeluar(){}
     public void editBarangKeluar(){}
-    public void removeBarangKeluar(){}
+    public void removeBarangKeluar(){
+        System.out.println("Menghapus Data Barang Keluar");
+
+        int id = InputUtil.inputI("Masukkan ID   yang akan dihapus | (0 untuk batal) ");
+
+        if(id == 0){
+            System.out.println("Penghapusan dibatalakan");
+            return;
+        }
+
+        barangMasukKeluarService.deleteBarangKeluar(id);
+    }
 
 }
