@@ -92,7 +92,18 @@ public class BarangMasukKeluarServiceImpl implements BarangMasukKeluarService {
 
     @Override
     public void addBarangKeluar(BarangMasukKeluar barangMasukKeluar) {
+        // Validation
+        if(barangMasukKeluar.getKdBarang() == null || barangMasukKeluar.getKdBarang().isEmpty()){
+            System.err.println("Kode Barang tidak boleh kosong");
+            return;
+        }
 
+        if(barangMasukKeluar.getJumlah() < 0){
+            System.err.println("Jumlah tidak boleh kurang dari 0.");
+            return;
+        }
+
+        barangMasukKeluarRepository.addKeluar(barangMasukKeluar);
     }
 
     @Override
