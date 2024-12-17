@@ -1,6 +1,5 @@
 package repository;
 
-import entity.Barang;
 import entity.BarangMasukKeluar;
 import util.DatabaseUtil;
 
@@ -50,8 +49,8 @@ public class BarangMasukKeluarRepositoryImpl implements BarangMasukKeluarReposit
         ){
             statement.setString(1, barangMasukKeluar.getKdBarang());
             statement.setInt(2, barangMasukKeluar.getJumlah());
-            //statement.setString(3, barang.getKategori());
-            //statement.setString(3, barangMasukKeluar.getTipe());
+            //statement.setDate(3, barangMasukKeluar.getTanggal());
+
 
 
 
@@ -65,16 +64,73 @@ public class BarangMasukKeluarRepositoryImpl implements BarangMasukKeluarReposit
 
     @Override
     public void editMasuk(BarangMasukKeluar barangMasukKeluar) {
+        String sql = "UPDATE barang_masuk_keluars SET kd_barang  = ?, jumlah = ? ? WHERE id = ?";
+        try(Connection connection = DatabaseUtil.getConnection();
+            PreparedStatement statement = connection.prepareStatement(sql);
 
+        ){
+            statement.setString(1, barangMasukKeluar.getKdBarang());
+            statement.setInt(2, barangMasukKeluar.getJumlah());
+
+
+            int rowsAffected = statement.executeUpdate();
+            if (rowsAffected > 0) {
+                System.out.println("Barang Masuk Keluar berhasil diperbarui. Rows affected: " + rowsAffected);
+            } else {
+                System.out.println("Barang Masuk Keluar dengan Kode " + barangMasukKeluar.getId() + " tidak ditemukan.");
+            }
+
+
+
+        }catch (SQLException e){
+            System.err.println("Gagal memperbarui data Barang Masuk Keluar: " + e.getMessage());
+        }
     }
 
     @Override
     public void deleteMasuk(int id) {
+        String sql = "DELETE FROM barang_masuk_keluars WHERE id = ?";
 
+        try(Connection connection = DatabaseUtil.getConnection();
+            PreparedStatement statement = connection.prepareStatement(sql);
+        ){
+            statement.setInt(1, id);
+            int rowsAffected = statement.executeUpdate();
+
+            if (rowsAffected > 0) {
+                System.out.println("Barang Masuk Keluar berhasil dihapus.");
+            } else {
+                System.err.println("Gagal menghapus Barang Masuk Keluar. ID tidak ditemukan.");
+            }
+
+        }catch (SQLException e){
+            System.err.println("Gagal menghapus barang masuk keluar: " + e.getMessage());
+
+        }
     }
 
     @Override
-    public Barang findByIdMasuk(int id) {
+    public BarangMasukKeluar findByIdMasuk(int id) {
+        String sql  = "SElECT * FROM barang_masuk_keluars WHERE id = ?";
+        try(Connection connection = DatabaseUtil.getConnection();
+            PreparedStatement statement = connection.prepareStatement(sql);
+        ){
+            statement.setInt(1, id);
+            try(ResultSet resultSet = statement.executeQuery()){
+                if(resultSet.next()){
+                    BarangMasukKeluar barangMasukKeluar = new BarangMasukKeluar();
+                    barangMasukKeluar.setKdBarang(resultSet.getString("kd_barang"));
+                    barangMasukKeluar.setId(resultSet.getInt("id"));
+                    barangMasukKeluar.setJumlah(resultSet.getInt("jumlah"));
+                    barangMasukKeluar.setTanggal(resultSet.getDate("tanggal"));
+                    return barangMasukKeluar;
+                }
+            }
+
+        }catch (SQLException e){
+            System.err.println("Gagal mencari Barang Masuk Keluar: " + e.getMessage());
+
+        }
         return null;
     }
 
@@ -109,21 +165,97 @@ public class BarangMasukKeluarRepositoryImpl implements BarangMasukKeluarReposit
 
     @Override
     public void addKeluar(BarangMasukKeluar barangMasukKeluar) {
+        String sql ="INSERT INTO barang_masuk_keluars (kd_barang, jumlah, tipe) VALUES(?, ?, 'keluar')";
 
+        try(Connection connection = DatabaseUtil.getConnection();
+            PreparedStatement statement = connection.prepareStatement(sql)
+        ){
+            statement.setString(1, barangMasukKeluar.getKdBarang());
+            statement.setInt(2, barangMasukKeluar.getJumlah());
+            //statement.setDate(3, barangMasukKeluar.getTanggal());
+
+
+
+
+            int rows = statement.executeUpdate();
+            System.out.println("Data berhasil ditambahkan. Rows Affected : " + rows);
+        }catch(SQLException e){
+            System.err.println("Gagal menambahkan Barang: " + e.getMessage());
+
+        }
     }
 
     @Override
     public void editKeluar(BarangMasukKeluar barangMasukKeluar) {
+        String sql = "UPDATE barang_masuk_keluars SET kd_barang  = ?, jumlah = ? ? WHERE id = ?";
+        try(Connection connection = DatabaseUtil.getConnection();
+            PreparedStatement statement = connection.prepareStatement(sql);
 
+        ){
+            statement.setString(1, barangMasukKeluar.getKdBarang());
+            statement.setInt(2, barangMasukKeluar.getJumlah());
+
+
+            int rowsAffected = statement.executeUpdate();
+            if (rowsAffected > 0) {
+                System.out.println("Barang Masuk Keluar berhasil diperbarui. Rows affected: " + rowsAffected);
+            } else {
+                System.out.println("Barang Masuk Keluar dengan Kode " + barangMasukKeluar.getId() + " tidak ditemukan.");
+            }
+
+
+
+        }catch (SQLException e){
+            System.err.println("Gagal memperbarui data Barang Masuk Keluar: " + e.getMessage());
+        }
     }
 
     @Override
     public void deleteKeluar(int id) {
+        String sql = "DELETE FROM barang_masuk_keluars WHERE id = ?";
 
+        try(Connection connection = DatabaseUtil.getConnection();
+            PreparedStatement statement = connection.prepareStatement(sql);
+        ){
+            statement.setInt(1, id);
+            int rowsAffected = statement.executeUpdate();
+
+            if (rowsAffected > 0) {
+                System.out.println("Barang Masuk Keluar berhasil dihapus.");
+            } else {
+                System.err.println("Gagal menghapus Barang Masuk Keluar. ID tidak ditemukan.");
+            }
+
+        }catch (SQLException e){
+            System.err.println("Gagal menghapus barang masuk keluar: " + e.getMessage());
+
+        }
     }
 
     @Override
-    public Barang findByIdKeluar(int id) {
+    public BarangMasukKeluar findByIdKeluar(int id) {
+        String sql  = "SElECT * FROM barang_masuk_keluars WHERE id = ?";
+        try(Connection connection = DatabaseUtil.getConnection();
+            PreparedStatement statement = connection.prepareStatement(sql);
+        ){
+            statement.setInt(1, id);
+            try(ResultSet resultSet = statement.executeQuery()){
+                if(resultSet.next()){
+                    BarangMasukKeluar barangMasukKeluar = new BarangMasukKeluar();
+                    barangMasukKeluar.setKdBarang(resultSet.getString("kd_barang"));
+                    barangMasukKeluar.setId(resultSet.getInt("id"));
+                    barangMasukKeluar.setJumlah(resultSet.getInt("jumlah"));
+                    barangMasukKeluar.setTanggal(resultSet.getDate("tanggal"));
+                    return barangMasukKeluar;
+                }
+            }
+
+        }catch (SQLException e){
+            System.err.println("Gagal mencari Barang Masuk Keluar: " + e.getMessage());
+
+        }
         return null;
+
+
     }
 }

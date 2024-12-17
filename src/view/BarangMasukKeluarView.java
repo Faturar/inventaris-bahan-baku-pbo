@@ -35,7 +35,7 @@ public class BarangMasukKeluarView {
             }else if(input.equals("2")) {
                 addBarangMasuk();
             }else if(input.equals("3")){
-                editStokMasuk();
+                editBarangMasuk();
             }else if(input.equals("3")){
                 removeBarangMasuk();
             }else if(input.equals("x")){
@@ -68,7 +68,7 @@ public class BarangMasukKeluarView {
         barangMasukKeluarService.addBarangMasuk(barangMasukKeluarData);
 
     }
-    public void editStokMasuk(){}
+    public void editBarangMasuk(){}
     public void removeBarangMasuk(){}
 
 
@@ -79,17 +79,22 @@ public class BarangMasukKeluarView {
 
         while (true){
             barangMasukKeluarService.showBarangKeluar();
+
+            System.out.println("========================= BARANG MASUK =========================");
             System.out.println("Menu :  ");
-            System.out.println("1.Tambah");
-            System.out.println("2.Edit ");
-            System.out.println("3.Hapus");
+            System.out.println("1.Data Barang Keluar");
+            System.out.println("2.Tambah");
+            System.out.println("3.Edit ");
+            System.out.println("4.Hapus");
             System.out.println("x.Menu Utama");
 
             var input = InputUtil.inputS("Pilih");
             if(input.equals("1")){
-                addBarangKeluar();
+                showDataBarangKeluar();
             }else if(input.equals("2")) {
-                editStokKeluar();
+                addBarangKeluar();
+            }else if(input.equals("3")){
+                editBarangKeluar();
             }else if(input.equals("3")){
                 removeBarangKeluar();
             }else if(input.equals("x")){
@@ -101,8 +106,11 @@ public class BarangMasukKeluarView {
         }
     }
 
+    private void showDataBarangKeluar() {
+    }
+
     public void addBarangKeluar(){}
-    public void editStokKeluar(){}
+    public void editBarangKeluar(){}
     public void removeBarangKeluar(){}
 
 }
