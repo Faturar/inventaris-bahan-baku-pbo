@@ -26,7 +26,6 @@ public class BarangServiceImpl implements BarangService{
             System.out.println("    Stok Minimum : " + barang.getStokMinimum());
             System.out.println("    Tanggal Kadaluarsa : " + barang.getTanggalKadaluarsa());
             System.out.println("    ID Pemasok : " + barang.getIdPemasok());
-
             System.out.println("-------------------------------------------");
 
         }

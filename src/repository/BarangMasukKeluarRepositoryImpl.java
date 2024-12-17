@@ -26,7 +26,7 @@ public class BarangMasukKeluarRepositoryImpl implements BarangMasukKeluarReposit
                 barangMasukKeluar.setId(resultSet.getInt("id"));
                 barangMasukKeluar.setKdBarang(resultSet.getString("kd_barang"));
                 barangMasukKeluar.setJumlah(resultSet.getInt("jumlah"));
-                barangMasukKeluar.setTanggal(resultSet.getString("tanggal"));
+                barangMasukKeluar.setTanggal(resultSet.getDate("tanggal"));
 //                barangMasukKeluar.setTipe(BarangMasukKeluar.Tipe.valueOf(resultSet.getString("tipe")));
 
 
@@ -43,7 +43,24 @@ public class BarangMasukKeluarRepositoryImpl implements BarangMasukKeluarReposit
 
     @Override
     public void addMasuk(BarangMasukKeluar barangMasukKeluar) {
+        String sql ="INSERT INTO barang_masuk_keluars (kd_barang, jumlah, tipe) VALUES(?, ?, 'masuk')";
 
+        try(Connection connection = DatabaseUtil.getConnection();
+            PreparedStatement statement = connection.prepareStatement(sql)
+        ){
+            statement.setString(1, barangMasukKeluar.getKdBarang());
+            statement.setInt(2, barangMasukKeluar.getJumlah());
+            //statement.setString(3, barang.getKategori());
+            //statement.setString(3, barangMasukKeluar.getTipe());
+
+
+
+            int rows = statement.executeUpdate();
+            System.out.println("Data berhasil ditambahkan. Rows Affected : " + rows);
+        }catch(SQLException e){
+            System.err.println("Gagal menambahkan Barang: " + e.getMessage());
+
+        }
     }
 
     @Override
@@ -75,7 +92,7 @@ public class BarangMasukKeluarRepositoryImpl implements BarangMasukKeluarReposit
                 barangMasukKeluar.setId(resultSet.getInt("id"));
                 barangMasukKeluar.setKdBarang(resultSet.getString("kd_barang"));
                 barangMasukKeluar.setJumlah(resultSet.getInt("jumlah"));
-                barangMasukKeluar.setTanggal(resultSet.getString("tanggal"));
+                barangMasukKeluar.setTanggal(resultSet.getDate("tanggal"));
 //                barangMasukKeluar.setTipe(BarangMasukKeluar.Tipe.valueOf(resultSet.getString("tipe")));
 
 

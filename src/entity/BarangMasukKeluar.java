@@ -1,15 +1,14 @@
 package entity;
 
-
+import java.sql.Date;
 
 public class BarangMasukKeluar {
 
     private int id;
     private String kdBarang;
     private int jumlah;
-
-    private String tanggal; // Use String if datetime format is not yet defined
-    private Tipe tipe;
+    private Date tanggal; // Use String if datetime format is not yet defined
+    private String tipe;
 
     public int getId() {
         return id;
@@ -35,26 +34,22 @@ public class BarangMasukKeluar {
         this.jumlah = jumlah;
     }
 
-    public String getTanggal() {
+    public Date getTanggal() {
         return tanggal;
     }
 
-    public void setTanggal(String tanggal) {
+    public void setTanggal(Date tanggal) {
         this.tanggal = tanggal;
     }
 
-    public Tipe getTipe() {
+    public String getTipe() {
         return tipe;
     }
 
-    public void setTipe(Tipe tipe) {
+    public void setTipe(String tipe) {
         this.tipe = tipe;
     }
 
-    // Enum for the 'tipe' field
-    public enum Tipe {
-        MASUK,
-        KELUAR
-    }
+
 
 }

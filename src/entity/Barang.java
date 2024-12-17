@@ -10,7 +10,6 @@ public class Barang {
     private int stok;
     private int stokMinimum;
     private Date tanggalKadaluarsa;
-
     private int idPemasok;
     private Timestamp createdAt;
     private Timestamp updatedAt;

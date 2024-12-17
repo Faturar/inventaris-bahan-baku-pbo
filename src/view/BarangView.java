@@ -1,14 +1,10 @@
 package view;
 
 import entity.Barang;
-
 import service.BarangService;
-
 import util.InputUtil;
 
-import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.LocalDate;
 
 public class BarangView {
 
@@ -53,8 +49,8 @@ public class BarangView {
         int stok = InputUtil.inputI("Masukkan stok barang: ");
         int stokMinimum = InputUtil.inputI("Masukkan stok minimum barang: ");
 
-        //String tanggalKadaluarsaInput = InputUtil.inputS("Masukkan tanggal kadaluarsa (yyyy-MM-dd):");
-
+        String tanggalKadaluarsaInput = InputUtil.inputS("Masukkan tanggal kadaluarsa (yyyy-MM-dd):");
+        LocalDate tanggalKadaluarsa = LocalDate.parse(tanggalKadaluarsaInput);
 
         int idPemasok = InputUtil.inputI("Masukkan ID pemasok: ");
 
@@ -65,7 +61,8 @@ public class BarangView {
         barangData.setKategori(kategori);
         barangData.setStok(stok);
         barangData.setStokMinimum(stokMinimum);
-        //barangData.setTanggalKadaluarsa(tanggalKadaluarsa);
+        java.sql.Date sqlDate = java.sql.Date.valueOf(tanggalKadaluarsa);
+
         barangData.setIdPemasok(idPemasok);
 
 
