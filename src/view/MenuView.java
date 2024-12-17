@@ -24,6 +24,7 @@ public class MenuView {
             System.out.println("4. Data Pemasok");
             //System.out.println("5. Report (Hari/Minggu/Bulan)");
             System.out.println("x. Keluar");
+            System.out.println("=================================================================");
 
             var input = InputUtil.inputS("Pilih");
             switch (input) {

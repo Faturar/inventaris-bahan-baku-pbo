@@ -18,6 +18,7 @@ public class BarangView {
 
         while (true){
             barangService.showBarang();
+            System.out.println("=================================================================");
             System.out.println("Menu :  ");
             System.out.println("1.Tambah");
             System.out.println("2.Edit Stok");
@@ -44,6 +45,7 @@ public class BarangView {
     }
 
     public void addBarang() {
+        System.out.println("=================================================================");
         String kdBarang = InputUtil.inputS("Masukkan kode barang: ");
         String nama = InputUtil.inputS("Masukkan nama barang: ");
         String kategori = InputUtil.inputS("Masukkan kategori barang: ");
@@ -56,6 +58,7 @@ public class BarangView {
         java.sql.Date sqlDate = new java.sql.Date(year - 1900, month -1,day );
         
         int idPemasok = InputUtil.inputI("Masukkan ID pemasok: ");
+        
 
         // Create a Pemasok object and set its attributes
         Barang barangData = new Barang();
