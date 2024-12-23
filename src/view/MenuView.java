@@ -19,6 +19,7 @@ public class MenuView {
             System.out.println("3. Data Barang");
             System.out.println("4. Data Pemasok");
             System.out.println("x. Keluar");
+            System.out.println("=================================================================");
 
             var input = InputUtil.inputS("Pilih");
             switch (input) {
