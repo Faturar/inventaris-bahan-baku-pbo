@@ -1,17 +1,13 @@
 package service;
-
 import entity.Pemasok;
 import repository.PemasokRepository;
-
 import java.util.List;
 
 public class PemasokServiceImpl implements PemasokService{
-
     private PemasokRepository pemasokRepository;
 
     public PemasokServiceImpl(PemasokRepository pemasokRepository) {
         this.pemasokRepository = pemasokRepository;
-
     }
 
     @Override
@@ -29,6 +25,16 @@ public class PemasokServiceImpl implements PemasokService{
         }
     }
 
+    public void showPemasokId(){
+        List<Pemasok> model= pemasokRepository.getAll();
+        System.out.println("========= DAFTAR PEMASOK =========");
+        for (var i=0; i <model.size();i++){
+            Pemasok pemasok = model.get(i);
+            System.out.print((i+1) + ".  ID: " + pemasok.getId());
+            System.out.println("    Nama : " + pemasok.getNama());
+
+        }
+    }
     @Override
     public void addPemasok(Pemasok pemasok) {
         // Validasi data
@@ -46,16 +52,8 @@ public class PemasokServiceImpl implements PemasokService{
         }
 
         pemasokRepository.add(pemasok);
-        System.out.println("Sukses Menambah Data : " + pemasok);
+        System.out.println("Sukses Menambah Data ");
 
-
-        // Default timestamps jika belum diisi
-//        if (pemasok.getCreatedAt() == null) {
-//            pemasok.setCreatedAt(new Timestamp(System.currentTimeMillis()));
-//        }
-//        if (pemasok.getUpdatedAt() == null) {
-//            pemasok.setUpdatedAt(new Timestamp(System.currentTimeMillis()));
-//        }
     }
 
     @Override
@@ -76,7 +74,7 @@ public class PemasokServiceImpl implements PemasokService{
 
         // Save changes to the repository
         pemasokRepository.edit(pemasok);
-        System.out.println("Sukses Mengubah Data : " + pemasok);
+        System.out.println("Sukses Mengubah Data ");
     }
 
     @Override

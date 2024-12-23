@@ -7,7 +7,7 @@ public class BarangMasukKeluar {
     private int id;
     private String kdBarang;
     private int jumlah;
-    private Date tanggal; // Use String if datetime format is not yet defined
+    private Date tanggal;
     private String tipe;
 
     public int getId() {

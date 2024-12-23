@@ -42,7 +42,7 @@ public class BarangMasukKeluarRepositoryImpl implements BarangMasukKeluarReposit
 
     @Override
     public void addMasuk(BarangMasukKeluar barangMasukKeluar) {
-        String sql ="INSERT INTO barang_masuk_keluars (kd_barang, jumlah,tanggal, tipe) VALUES(?, ?, ?, 'masuk')";
+        String sql ="INSERT INTO barang_masuk_keluars (kd_barang, jumlah, tanggal, tipe) VALUES(?, ?, ?, 'masuk')";
 
         try(Connection connection = DatabaseUtil.getConnection();
             PreparedStatement statement = connection.prepareStatement(sql)
@@ -56,31 +56,6 @@ public class BarangMasukKeluarRepositoryImpl implements BarangMasukKeluarReposit
         }catch(SQLException e){
             System.err.println("Gagal menambahkan Barang: " + e.getMessage());
 
-        }
-    }
-
-    @Override
-    public void editMasuk(BarangMasukKeluar barangMasukKeluar) {
-        String sql = "UPDATE barang_masuk_keluars SET kd_barang  = ?, jumlah = ? ? WHERE id = ?";
-        try(Connection connection = DatabaseUtil.getConnection();
-            PreparedStatement statement = connection.prepareStatement(sql);
-
-        ){
-            statement.setString(1, barangMasukKeluar.getKdBarang());
-            statement.setInt(2, barangMasukKeluar.getJumlah());
-
-
-            int rowsAffected = statement.executeUpdate();
-            if (rowsAffected > 0) {
-                System.out.println("Barang Masuk Keluar berhasil diperbarui. Rows affected: " + rowsAffected);
-            } else {
-                System.out.println("Barang Masuk Keluar dengan Kode " + barangMasukKeluar.getId() + " tidak ditemukan.");
-            }
-
-
-
-        }catch (SQLException e){
-            System.err.println("Gagal memperbarui data Barang Masuk Keluar: " + e.getMessage());
         }
     }
 
@@ -162,17 +137,14 @@ public class BarangMasukKeluarRepositoryImpl implements BarangMasukKeluarReposit
 
     @Override
     public void addKeluar(BarangMasukKeluar barangMasukKeluar) {
-        String sql ="INSERT INTO barang_masuk_keluars (kd_barang, jumlah, tipe) VALUES(?, ?, 'keluar')";
+        String sql ="INSERT INTO barang_masuk_keluars (kd_barang, jumlah, tanggal, tipe) VALUES(?, ?, ?, 'keluar')";
 
         try(Connection connection = DatabaseUtil.getConnection();
             PreparedStatement statement = connection.prepareStatement(sql)
         ){
             statement.setString(1, barangMasukKeluar.getKdBarang());
             statement.setInt(2, barangMasukKeluar.getJumlah());
-            //statement.setDate(3, barangMasukKeluar.getTanggal());
-
-
-
+            statement.setDate(3, barangMasukKeluar.getTanggal());
 
             int rows = statement.executeUpdate();
             System.out.println("Data berhasil ditambahkan. Rows Affected : " + rows);
@@ -182,30 +154,6 @@ public class BarangMasukKeluarRepositoryImpl implements BarangMasukKeluarReposit
         }
     }
 
-    @Override
-    public void editKeluar(BarangMasukKeluar barangMasukKeluar) {
-        String sql = "UPDATE barang_masuk_keluars SET kd_barang  = ?, jumlah = ? ? WHERE id = ?";
-        try(Connection connection = DatabaseUtil.getConnection();
-            PreparedStatement statement = connection.prepareStatement(sql);
-
-        ){
-            statement.setString(1, barangMasukKeluar.getKdBarang());
-            statement.setInt(2, barangMasukKeluar.getJumlah());
-
-
-            int rowsAffected = statement.executeUpdate();
-            if (rowsAffected > 0) {
-                System.out.println("Barang Masuk Keluar berhasil diperbarui. Rows affected: " + rowsAffected);
-            } else {
-                System.out.println("Barang Masuk Keluar dengan Kode " + barangMasukKeluar.getId() + " tidak ditemukan.");
-            }
-
-
-
-        }catch (SQLException e){
-            System.err.println("Gagal memperbarui data Barang Masuk Keluar: " + e.getMessage());
-        }
-    }
 
     @Override
     public void deleteKeluar(int id) {

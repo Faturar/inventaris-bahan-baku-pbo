@@ -21,4 +21,10 @@ public class InputUtil  {
         return scanner.nextInt();
     }
 
+
+    public static void clearBuffer() {
+        if (scanner.hasNextLine()) {
+            scanner.nextLine(); // Consume the leftover newline character
+        }
+    }
 }

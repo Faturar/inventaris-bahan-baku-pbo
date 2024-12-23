@@ -1,10 +1,9 @@
 package service;
 
-import entity.Barang;
 import entity.BarangMasukKeluar;
-import entity.Pemasok;
+
 import repository.BarangMasukKeluarRepository;
-import repository.BarangRepository;
+
 
 import java.util.List;
 
@@ -49,10 +48,6 @@ public class BarangMasukKeluarServiceImpl implements BarangMasukKeluarService {
         barangMasukKeluarRepository.addMasuk(barangMasukKeluar);
     }
 
-    @Override
-    public void editBarangMasuk(BarangMasukKeluar barangMasukKeluar) {
-
-    }
 
     @Override
     public void deleteBarangMasuk(int id) {
@@ -92,13 +87,20 @@ public class BarangMasukKeluarServiceImpl implements BarangMasukKeluarService {
 
     @Override
     public void addBarangKeluar(BarangMasukKeluar barangMasukKeluar) {
+        // Validation
+        if(barangMasukKeluar.getKdBarang() == null || barangMasukKeluar.getKdBarang().isEmpty()){
+            System.err.println("Kode Barang tidak boleh kosong");
+            return;
+        }
 
+        if(barangMasukKeluar.getJumlah() < 0){
+            System.err.println("Jumlah tidak boleh kurang dari 0.");
+            return;
+        }
+
+        barangMasukKeluarRepository.addKeluar(barangMasukKeluar);
     }
 
-    @Override
-    public void editBarangKeluar(BarangMasukKeluar barangMasukKeluar) {
-
-    }
 
     @Override
     public void deleteBarangKeluar(int id) {
@@ -117,4 +119,6 @@ public class BarangMasukKeluarServiceImpl implements BarangMasukKeluarService {
     public BarangMasukKeluar findBarangIdKeluar(int id) {
         return null;
     }
+
+
 }

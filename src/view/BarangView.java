@@ -2,22 +2,23 @@ package view;
 
 import entity.Barang;
 import service.BarangService;
+import service.PemasokService;
 import util.InputUtil;
 
-import java.sql.Date;
-import java.time.LocalDate;
-
 public class BarangView {
-
     private BarangService barangService;
+    private PemasokService pemasokService;
 
-    public BarangView(BarangService barangService) {
+
+    public BarangView(BarangService barangService, PemasokService pemasokService) {
         this.barangService = barangService;
+        this.pemasokService = pemasokService;
     }
     public void showBarang(){
-
         while (true){
+            barangService.checkExpiredItems();
             barangService.showBarang();
+            System.out.println("=================================================================");
             System.out.println("Menu :  ");
             System.out.println("1.Tambah");
             System.out.println("2.Edit Stok");
@@ -44,30 +45,34 @@ public class BarangView {
     }
 
     public void addBarang() {
-        String kdBarang = InputUtil.inputS("Masukkan kode barang: ");
-        String nama = InputUtil.inputS("Masukkan nama barang: ");
-        String kategori = InputUtil.inputS("Masukkan kategori barang: ");
-        int stok = InputUtil.inputI("Masukkan stok barang: ");
-        int stokMinimum = InputUtil.inputI("Masukkan stok minimum barang: ");
+        System.out.println("=================================================================");
+        String kdBarang = InputUtil.inputS("Masukkan kode barang ");
+        String nama = InputUtil.inputS("Masukkan nama barang ");
+        String kategori = InputUtil.inputS("Masukkan kategori barang ");
+        int stok = InputUtil.inputI("Masukkan stok barang ");
+        int stokMinimum = InputUtil.inputI("Masukkan stok minimum barang ");
 
         int year = InputUtil.inputI("Masukkan tahun");
         int month = InputUtil.inputI("Masukkan bulan");
         int day = InputUtil.inputI("Masukkan tanggal");
+        java.sql.Date sqlDate = new java.sql.Date(year - 1900, month -1,day );
+
+        // Tampilkan daftar pemasok
+        System.out.println("Daftar Pemasok:");
+        pemasokService.showPemasokId();
         int idPemasok = InputUtil.inputI("Masukkan ID pemasok: ");
 
-        // Create a Pemasok object and set its attributes
+
+
         Barang barangData = new Barang();
         barangData.setKdBarang(kdBarang);
         barangData.setNama(nama);
         barangData.setKategori(kategori);
         barangData.setStok(stok);
         barangData.setStokMinimum(stokMinimum);
-        java.sql.Date sqlDate = new java.sql.Date(year - 1900, month -1,day );
         barangData.setTanggalKadaluarsa(sqlDate);
         barangData.setIdPemasok(idPemasok);
 
-
-        // Add pemasok using the service layer
         barangService.addBarang(barangData);
 
 
@@ -105,9 +110,10 @@ public class BarangView {
         Barang barangData = new Barang();
         barangData.setKdBarang(kdBarang);
         barangData.setStok(stok);
-        // Add pemasok using the service layer
+
         barangService.addStokBarang(barangData);
     }
+
     private void minStokBarang(){
         barangService.showBarang();
         System.out.println("=========== Pengurangan Stok ===========");
@@ -117,14 +123,14 @@ public class BarangView {
         Barang barangData = new Barang();
         barangData.setKdBarang(kdBarang);
         barangData.setStok(stok);
-        // Add pemasok using the service layer
+
         barangService.minStokBarang(barangData);
     }
 
     private void editBarang() {
         System.out.println("Mengubah Data Barang");
 
-        // Input kode barang yang ingin diedit
+
         var kodeBarang = InputUtil.inputS("Kode Barang yang ingin diedit | (x untuk batal)");
         if (kodeBarang.equalsIgnoreCase("x")) {
             System.out.println("Batal mengedit barang.");
@@ -140,32 +146,32 @@ public class BarangView {
 
         // Tampilkan data barang saat ini
         System.out.println("Data barang saat ini:");
-        System.out.println("Kode Barang   : " + existingBarang.getKdBarang());
-        System.out.println("Nama          : " + existingBarang.getNama());
-        System.out.println("Kategori      : " + existingBarang.getKategori());
-        System.out.println("Tanggal Kadaluarsa      : " + existingBarang.getTanggalKadaluarsa());
-        System.out.println("ID Pemasok    : " + existingBarang.getIdPemasok());
+        System.out.println("Kode Barang      : " + existingBarang.getKdBarang());
+        System.out.println("Nama             : " + existingBarang.getNama());
+        System.out.println("Kategori         : " + existingBarang.getKategori());
+        System.out.println("Tanggal Kadaluarsa : " + existingBarang.getTanggalKadaluarsa());
+        System.out.println("ID Pemasok       : " + existingBarang.getIdPemasok());
 
         // Input nilai baru (biarkan kosong untuk tidak mengubah)
-        //var newKdBarang = InputUtil.inputS("Kode Barang baru (kosongkan untuk tidak mengubah)");
+
         var newNama = InputUtil.inputS("Nama baru (kosongkan untuk tidak mengubah)");
         var newKategori = InputUtil.inputS("Kategori baru (kosongkan untuk tidak mengubah)");
-
         int newYear = InputUtil.inputI("Masukkan tahun");
         int newMonth = InputUtil.inputI("Masukkan bulan");
         int newDay = InputUtil.inputI("Masukkan tanggal");
+        InputUtil.clearBuffer(); // Ensure this method clears the buffer
 
+        // Tampilkan daftar pemasok
+        System.out.println("Daftar Pemasok:");
+        pemasokService.showPemasokId();
         var newIdPemasokStr = InputUtil.inputS("ID Pemasok baru (kosongkan untuk tidak mengubah)");
 
 
         java.sql.Date sqlDate = new java.sql.Date(newYear - 1900, newMonth -1,newDay );
-        //barangData.setTanggalKadaluarsa(sqlDate);
 
-        // Validasi dan terapkan perubahan
-        //if (!newKdBarang.isEmpty()) existingBarang.setNama(newKdBarang);
         if (!newNama.isEmpty()) existingBarang.setNama(newNama);
         if (!newKategori.isEmpty()) existingBarang.setKategori(newKategori);
-        existingBarang.setKategori(String.valueOf(sqlDate));
+        existingBarang.setTanggalKadaluarsa(sqlDate);
 
         if (!newIdPemasokStr.isEmpty()) {
             try {

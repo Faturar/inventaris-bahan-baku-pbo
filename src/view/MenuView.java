@@ -1,20 +1,16 @@
 package view;
-
 import util.InputUtil;
 public class MenuView {
-
     private BarangView barangView;
     private PemasokView pemasokView;
     private BarangMasukKeluarView barangMasukKeluarView;
 
-    // Constructor for dependency injection
     public MenuView(BarangView barangView, PemasokView pemasokView, BarangMasukKeluarView barangMasukKeluarView) {
         this.barangView = barangView;
         this.pemasokView = pemasokView;
         this.barangMasukKeluarView = barangMasukKeluarView;
     }
     public void menu(){
-
         while (true) {
             System.out.println("===================== INVENTARIS TOKO PIZZA =====================");
             System.out.println("Menu :  ");
@@ -22,7 +18,6 @@ public class MenuView {
             System.out.println("2. Barang Keluar");
             System.out.println("3. Data Barang");
             System.out.println("4. Data Pemasok");
-            //System.out.println("5. Report (Hari/Minggu/Bulan)");
             System.out.println("x. Keluar");
 
             var input = InputUtil.inputS("Pilih");

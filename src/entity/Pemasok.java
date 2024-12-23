@@ -1,19 +1,15 @@
 package entity;
 import java.sql.Timestamp;
-import java.time.LocalDateTime;
 
 public class Pemasok {
 
-    private Integer id;            // Primary Key
+    private Integer id;
     private String nama;
     private String alamat;
     private String noTelepon;
     private Timestamp createdAt;
     private Timestamp updatedAt;
 
-
-
-    // Constructor
     public Pemasok() {
     }
 
