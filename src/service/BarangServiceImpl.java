@@ -147,11 +147,16 @@ public class BarangServiceImpl implements BarangService{
         Date today = new Date(); // Current date
 
         System.out.println("Checking for expired items...");
+        boolean hasExpiredItems = false;
+
         for (Barang barang : allBarangs) {
             if (barang.getTanggalKadaluarsa() != null && barang.getTanggalKadaluarsa().before(today)) {
                 System.out.println("Expired Item: " + barang.getNama() +
                         " | Expiration Date: " + barang.getTanggalKadaluarsa());
             }
+        }
+        if (!hasExpiredItems) {
+            System.out.println("Expired Item: None");
         }
 
     }

@@ -51,7 +51,7 @@ public class BarangView {
         String kategori = InputUtil.inputS("Masukkan kategori barang ");
         int stok = InputUtil.inputI("Masukkan stok barang ");
         int stokMinimum = InputUtil.inputI("Masukkan stok minimum barang ");
-
+        System.out.println("--Masukkan Tangal Expired Barang--");
         int year = InputUtil.inputI("Masukkan tahun");
         int month = InputUtil.inputI("Masukkan bulan");
         int day = InputUtil.inputI("Masukkan tanggal");
@@ -156,6 +156,7 @@ public class BarangView {
 
         var newNama = InputUtil.inputS("Nama baru (kosongkan untuk tidak mengubah)");
         var newKategori = InputUtil.inputS("Kategori baru (kosongkan untuk tidak mengubah)");
+        System.out.println("--Masukkan Tangal Expired Barang--");
         int newYear = InputUtil.inputI("Masukkan tahun");
         int newMonth = InputUtil.inputI("Masukkan bulan");
         int newDay = InputUtil.inputI("Masukkan tanggal");

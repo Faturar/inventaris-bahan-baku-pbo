@@ -59,7 +59,7 @@ public class BarangMasukKeluarServiceImpl implements BarangMasukKeluarService {
         }
 
         barangMasukKeluarRepository.deleteMasuk(id);
-        System.out.println("Pemasok dengan ID "+ id + " berhasil dihapus.");
+        System.out.println("Barang Masuk Keluar dengan ID "+ id + " berhasil dihapus.");
     }
 
     @Override
